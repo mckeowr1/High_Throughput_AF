@@ -1,0 +1,9 @@
+pair_group,Name,Monomer_id,Protein_start,Protein_end
+1,Ku_N,P12956,37,256
+1,Ku,P12956,263,468
+1,Ku_C,P12956,472,557
+1,Ku_N,P13010,9,244
+1,Ku,P13010,253,253
+1,Ku_C,P13010,476,569
+2,paxx_1,Q9BUH6,1,103
+3,paxx_2,Q9BUH6,104,204

@@ -1,0 +1,72 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "chain_splitter",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "-p", 
+                "7LT3", 
+                "-c",
+                "/Users/ryanmckeown/af_binary_pred/force_template/ku_70_ku_80_paxx/pdb.txt", 
+                "-o",
+                "/Users/ryanmckeown/af_binary_pred/force_template/ku_70_ku_80_paxx"
+
+            ]
+        },
+        {
+            "name": "process_af",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "-p",
+                "/Users/ryanmckeown/af_binary_pred/ku_pax/ku_base_paxx_full",
+                "-d",
+                "6",
+                "-k", 
+                "/Users/ryanmckeown/af_binary_pred/parse_outputs/multi_chain_testing/file_name_key.csv"
+            ]
+        },
+        {
+            "name": "process_pdb",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "-p",
+                "/Users/ryanmckeown/af_binary_pred/02012022_IJEQ_ku_70_ku80_pdb_domains/1jeq.pdb",
+                "-a",
+                "/Users/ryanmckeown/af_binary_pred/ku_70_ku_80/data/ku70.fa",
+                "-b",
+                "/Users/ryanmckeown/af_binary_pred/ku_70_ku_80/data/ku80.fa",
+                "-d",
+                "6",
+                "-da",
+                "/Users/ryanmckeown/af_binary_pred/parse_domains/P12956.json",
+                "-db",
+                "/Users/ryanmckeown/af_binary_pred/parse_domains/P13010.json",
+                "-o",
+                "/Users/ryanmckeown/af_binary_pred/02012022_IJEQ_ku_70_ku80_pdb_domains",
+                "-r",
+                "0"
+            ]
+        }
+    ]
+}
