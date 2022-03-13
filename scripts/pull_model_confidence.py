@@ -4,7 +4,7 @@ from parse_af import *
 import os 
 import argparse
 
-path = "/Users/ryanmckeown/af_binary_pred/02032022_af_ku70_ku80_domains"
+path = "/projects/b1059/projects/Ryan/protein_structure/High_Throughput_AF/data/03052022_TF/initial_models"
 
 def listdir_nohidden(path): #Remove hidden files from the directory
     return glob.glob(os.path.join(path, '*'))
@@ -18,12 +18,13 @@ def split_at(string, sep, n):
 #Get list of the files
 def pull_iptm(af_dir):
     file_name = os.path.basename(af_dir)
-    split = split_at(file_name, ".", 1)
-    a_name = split[0]
-    b_name = split[1]
-    domain_a = split_at(a_name, "_", 1)[1]
-    domain_b = split_at(b_name, "_", 1)[1]
-    pair_name = domain_a + "." + domain_b
+    split = split_at(file_name, "_", 1)
+    #a_name = split[0]
+    #b_name = split[1]
+    #domain_a = split_at(a_name, "_", 1)[1]
+    #domain_b = split_at(b_name, "_", 1)[1]
+    
+    pair_name = split[0] + "." + split[1]
 
 
 
@@ -48,6 +49,6 @@ print(all_interfaces)
 
 import csv
 
-with open("/Users/ryanmckeown/af_binary_pred/02032022_af_ku70_ku80_domains/model_iptm.csv", "w+", newline="") as f:
+with open("/projects/b1059/projects/Ryan/protein_structure/High_Throughput_AF/data/03052022_TF/initial_models/model_iptm.csv", "w+", newline="") as f:
     writer = csv.writer(f)
     writer.writerows(all_interfaces)

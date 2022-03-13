@@ -5,7 +5,7 @@ import numpy as np
 
 def make_fasta_dict(fasta_file): 
     fasta_dict = SeqIO.to_dict(SeqIO.parse(fasta_file , "fasta"))
-    for key in fasta_dict.keys(): #Rename to just uniprot ID
+    for key in list(fasta_dict.keys()): #Rename to just uniprot ID
         fasta_id = key 
         up_id = fasta_id.split(sep = "|")[1]
         fasta_dict[up_id] = fasta_dict.pop(fasta_id)

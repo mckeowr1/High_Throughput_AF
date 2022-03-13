@@ -139,6 +139,7 @@ for file in file_list:
     print(file)
     pair_data = process_domain_pred(file, max_distance = distance_max, dir_key = dir_key)
     all_interfaces.append(pair_data)
+print(all_interfaces)
 all_interfaces_df = pd.concat(all_interfaces)
 
 df_name = dir + "/all_af_domain_interfaces.csv"

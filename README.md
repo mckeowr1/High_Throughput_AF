@@ -18,5 +18,39 @@ Use Cases:
 - Multi-Configuration multi-subunit prediction
 
 ## Pipeline 
+
+## Envs
+Created with the following commands: 
+Conda Version: `4.5.2`
+
+conda create -n multiprot
+conda activate multiprot
+conda install -c bioconda nextflow
+conda install -c anaconda pandas
+conda install -c anaconda numpy
+conda install -c conda-forge biopython #I did have to run this twice 
+
 ### Inputs 
+To generate the files for pairwise AF multimer prediction we need a Key file to set what proteins, what region of the protein, and what pairings we will model. A template of the input can be found in the example_inputs section. 
+| pair_group | Name | Monomer_id | Protein_start | Protein_end | 
+| ------------- |-------------| -----| ---- | --- |
+| 1 | Ku70 |   |
+
+The pair group is a unique ID given to each entry in the file and is used to generate pairings. If you were interested in Ku70 and Ku80 modeling. You would give each a unique numeric pair ID.
+
+We also need an input fasta with the complete sequences of all proteins that will be modeled. Ie if you are interested in just one domain of Ku70 you still need to submit the full sequence of Ku70 in the fasta file.
+
+
+### Processing and AF output directory 
+Processing an AF output dir requires two keyfiles 
+1) Dir Key - a key file created during input processing 
+
+| group_pairing | dir_name| key_file  |
+| ------------- |-------------| -----|
+| 1_2 | ku70_base.ku80_base.paxx_full | path/to/key.csv  |
+
+
+2) Input Key - the key submitted during input processing
+
+python scripts/process_output.py -p path/to/directory -d max_distance -k path/to/dir_key.csv 
 

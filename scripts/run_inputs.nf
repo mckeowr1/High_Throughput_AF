@@ -1,28 +1,27 @@
 #!/usr/bin/env nextflow
 
-params.input_csv = "/experiment/chain_key.csv"
-params.fasta = "some/path/monomer.fa"
+params.pairings_csv = "/projects/b1059/projects/Ryan/protein_structure/High_Throughput_AF/data/test_output"
+params.monomer_fasta = ""
 
-
+pairings_csv = file(params.pairings_csv)
+monomer_fasta = file(params.monomer_fasta)
 
 process processInputs {
-    
-    
-    """
-    python3 scripts/process_inputs.py -p \$parsing_file -fm \$mon_fasta \$-o
-    
-    """
 
+    input: 
+    path 'out_file' from out_file
+    
+    output:
+    stdout result into 
+
+    """
+    echo $out_file
+    """
 }
 
-process submitJobs {
+result.view { it.trim() } 
 
-    input:
-    path 'jobdir' from 
-
-    """
-    bash parallel_submission.sh
-    
-    """
+process makeFile {
+    input
 
 }
