@@ -107,7 +107,7 @@ def process_domain_pred(file, max_distance, dir_key):
         chain_a = pair[0]
         chain_b = pair[1]
         print("Pulling interfaces for:" , chain_a.id, chain_b.id)
-        pair_id = str(chain_a.id + chain_b.id)
+        pair_id = str(chain_a.id + "_" + chain_b.id)
 
         i = pull_interfaces(chain_a = chain_a, chain_b = chain_b, distance_max = 6) #interfaces
         c = convert_chains(chain_a, chain_b, chain_dict , i , seq_id)
@@ -120,7 +120,7 @@ def process_domain_pred(file, max_distance, dir_key):
         #chain_b_start = pull_chain_start(chain_key, chain_b)
         #print(chain_a, "starts at:" ,chain_a_start)
         #print(chain_b, "starts at:" ,chain_b_start)
-        final = convert_full_protein(i_plddt, chain_a_start, chain_b_start, seq_id)
+        final = convert_full_protein(chain_a, chain_b, chain_dict, i_plddt, seq_id, chain_a_start, chain_b_start)
         
         #add chain ids to pair names 
         id_list = [pair_id] * len(final[0])
