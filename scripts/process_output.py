@@ -6,7 +6,7 @@ import os
 import json
 import re
 
-from sympy import residue
+#from sympy import residue
 from parse_af import * 
 
 print('Number of arguments:', len(sys.argv), 'arguments.')
@@ -102,6 +102,7 @@ def process_domain_pred(file, max_distance, dir_key):
         chain_b = pair[1]
         print("Pulling interfaces for:" , chain_a.id, chain_b.id)
         pair_id = str(chain_a.id + chain_b.id)
+        print(pair_id)
 
         i = pull_interfaces(chain_a = chain_a, chain_b = chain_b, distance_max = 6) #interfaces
         c = convert_chains(chain_a, chain_b, chain_dict , i , seq_id)
@@ -111,8 +112,10 @@ def process_domain_pred(file, max_distance, dir_key):
         chain_b_start = pull_chain_start(chain_key, chain_b)
         #print(chain_a, "starts at:" ,chain_a_start)
         #print(chain_b, "starts at:" ,chain_b_start)
-        final = convert_full_protein(i_plddt, chain_a_start, chain_b_start, seq_id)
-        
+        final = convert_full_protein(chain_a = chain_a, chain_b = chain_b, chain_index_map= chain_dict, interfaces_data = 
+         i_plddt, chain_a_start = chain_a_start, chain_b_start = chain_b_start, seq_id = seq_id)
+
+        print("There are", len(final[0]), "interfaces in", chain_a.id, chain_b.id, sep = " ")
         #add chain ids to pair names 
         id_list = [pair_id] * len(final[0])
         final.append(id_list)    
@@ -130,6 +133,7 @@ for file in file_list:
     print(file)
     pair_data = process_domain_pred(file, max_distance = distance_max, dir_key = dir_key)
     all_interfaces.append(pair_data)
+print(all_interfaces)
 all_interfaces_df = pd.concat(all_interfaces)
 
 df_name = dir + "/all_af_domain_interfaces.csv"

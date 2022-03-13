@@ -4,7 +4,23 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        {
+            "name": "Quest Process AF",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "args":[
+                "-p",
+                "/projects/b1059/projects/Ryan/protein_structure/High_Throughput_AF/data/03052022_TF/initial_models",
+                "-d",
+                "6",
+                "-k",
+                "/projects/b1059/projects/Ryan/protein_structure/High_Throughput_AF/data/03052022_TF/key_files/file_name_key.csv"
 
+            ]
+        },
         {
             "name": "Python: Current File",
             "type": "python",
@@ -19,13 +35,12 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "args": [
-                "-p", 
-                "7LT3", 
+                "-p",
+                "7LT3",
                 "-c",
-                "/Users/ryanmckeown/af_binary_pred/force_template/ku_70_ku_80_paxx/pdb.txt", 
+                "/Users/ryanmckeown/af_binary_pred/force_template/ku_70_ku_80_paxx/pdb.txt",
                 "-o",
                 "/Users/ryanmckeown/af_binary_pred/force_template/ku_70_ku_80_paxx"
-
             ]
         },
         {
@@ -39,7 +54,7 @@
                 "/Users/ryanmckeown/af_binary_pred/ku_pax/ku_base_paxx_full",
                 "-d",
                 "6",
-                "-k", 
+                "-k",
                 "/Users/ryanmckeown/af_binary_pred/parse_outputs/multi_chain_testing/file_name_key.csv"
             ]
         },

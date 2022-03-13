@@ -225,7 +225,7 @@ def convert_full_protein(chain_a, chain_b, chain_index_map, interfaces_data, seq
     chain_a_base = chain_a.full_id[2] # Get the base id
     chain_b_base = chain_b.full_id[2]
     
-    a_entity_id = chain_index_map.get(chain_a_base)
+    a_entity_id = chain_index_map.get(chain_a_base) #Pull entity ID from the dictionary 
     b_entity_id = chain_index_map.get(chain_b_base)
 
     if a_entity_id == 1:

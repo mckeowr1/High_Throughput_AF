@@ -1,16 +1,16 @@
 import pandas as pd 
 from parse_inputs import * 
 
-pairings_file = "/Users/ryanmckeown/af_binary_pred/force_template/ku70.ku_80_c_term.paxx_binding_6ZHA/02242022_fasta_key.csv"
+pairings_file = "/projects/b1059/projects/Ryan/protein_structure/High_Throughput_AF/data/03082021_ben1_tags_multimer/key_files/03082021_ben1_tags_multimer.csv"
 pairings_table = pd.read_csv(pairings_file)
 print(pairings_table)
 
-fasta_file = "/Users/ryanmckeown/af_binary_pred/example_inputs/ku70_ku80_paxx.fa"
+fasta_file = "/projects/b1059/projects/Ryan/protein_structure/High_Throughput_AF/data/03082021_ben1_tags_multimer/key_files/ben.fa"
 fasta_dict = make_fasta_dict(fasta_file)
+fasta_dict.keys()
+pair_scheme = ["1_5", "2_5", "3_5", "4_5"]
 
-pair_scheme = ["1_2"]
-
-out_dir = "/Users/ryanmckeown/af_binary_pred/force_template/ku70.ku_80_c_term.paxx_binding_6ZHA"
+out_dir = "/projects/b1059/projects/Ryan/protein_structure/High_Throughput_AF/data/03082021_ben1_tags_multimer/fastas"
 
 for pair in pair_scheme:
     p_1 = pair.split(sep= "_")[0]
