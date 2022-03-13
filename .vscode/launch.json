@@ -34,13 +34,14 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
+            "python": "/Users/ryanmckeown/opt/anaconda3/envs/protein_testing/bin/python3",
             "args": [
                 "-p",
-                "/Users/ryanmckeown/af_binary_pred/ku_pax/ku_base_paxx_full",
+                "/Users/ryanmckeown/High_Throughput_AF/data/test_output/models",
                 "-d",
                 "6",
                 "-k", 
-                "/Users/ryanmckeown/af_binary_pred/parse_outputs/multi_chain_testing/file_name_key.csv"
+                "/Users/ryanmckeown/High_Throughput_AF/data/test_output/key_files/file_name_key.csv"
             ]
         },
         {

@@ -203,12 +203,28 @@ def pull_chain_start(key, chain):
     chain_start = int(chain_df["Protein_start"])
     return(chain_start)
 
-def create_chain_key(key_path): 
-    df = pd.read_csv(key_path)
+# def create_chain_key(key_path): 
+#     df = pd.read_csv(key_path)
+#     bet = list(string.ascii_uppercase) #create an alphabetvector 
+#     chains= bet[0:len(df)]
+#     df["chain_id"] = chains
+#     return(df)
+
+def create_file_dict(key_file, pair_id):
+    """Creates a dictionary for an alphafold output folder based on input keys 
+    - Only works for two chain output 
+    - dictionary key is the chain ID
+    """
+    df = pd.read_csv(key_file, index_col= "pair_group") #Read in with the pair group id
+    chain_a_id = int(pair_id.split(sep = "_")[0])
+    chain_b_id = int(pair_id.split(sep = "_")[1])
+    pair_df = df.filter(items  = [chain_a_id, chain_b_id], axis= 0) #filter the df to proteins in the file
     bet = list(string.ascii_uppercase) #create an alphabetvector 
-    chains= bet[0:len(df)]
-    df["chain_id"] = chains
-    return(df)
+    chains= bet[0:len(pair_df)]
+    pair_df["chain_id"] = chains #add chain id to the dataframe
+    d = pair_df.set_index('chain_id').T.to_dict() #Create a dictionary from df
+    return(d)
+
 
 def convert_full_protein(chain_a, chain_b, chain_index_map, interfaces_data, seq_id, chain_a_start, chain_b_start): 
 
@@ -253,12 +269,14 @@ def convert_full_protein(chain_a, chain_b, chain_index_map, interfaces_data, seq
         interfaces_data[1][i] = convert_chain_b(interfaces_data[1][i], chain_b_start, b_entity_id)
     return(interfaces_data)
 
-def rename_chains(pdb, key):
+def rename_chains(pdb, model_dict):
     """Renames chains in model to the user fragment name and the full uniprot ID"""
     for chain in pdb.child_list: 
         chain_base = chain.full_id[2] # Get the base id
-        chain_name = key.loc[key['chain_id'] == chain_base, 'Name'].values[0] #pull sting out of df
-        chain_monomer = key.loc[key['chain_id'] == chain_base, 'Monomer_id'].values[0]
+        chain_name = model_dict[chain_base]['Name']
+        chain_monomer = model_dict[chain_base]['Monomer_id']
+        #chain_name = key.loc[key['chain_id'] == chain_base, 'Name'].values[0] #pull sting out of df
+        #chain_monomer = key.loc[key['chain_id'] == chain_base, 'Monomer_id'].values[0]
         chain_id = str(chain_name + "." + chain_monomer)
         print(chain_id)
         chain.id = chain_id
