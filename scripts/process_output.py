@@ -35,7 +35,7 @@ dir = args.directory[0]
 distance_max  = (args.max_distance[0])
 #a_domains_file = args.chain_A_domains[0] 
 #b_domains_file = args.chain_B_domains[0]
-key_file = args.directory_key_file[0]
+dir_key_file = args.directory_key_file[0]
 
 
 #Get the names of the files in the directory 
@@ -45,18 +45,24 @@ def listdir_nohidden(path): #Remove hidden files from the directory
 
 file_list = listdir_nohidden(dir)
 
-dir_key = pd.read_csv(key_file)
+dir_key = pd.read_csv(dir_key_file)
 
 def process_domain_pred(file, max_distance, dir_key):
     #print(file)
+    """"
+    file - af prediction to be processed 
+    max_distance - cut off for predicted interfaces 
+    dir_key - file that contains keys pairing ids,directory_names,path_to_input_file
+    """
     file_name = os.path.basename(file)
     print("Processing AF out dir:", file_name)
     key_file = dir_key.loc[dir_key['dir_name'] == file_name, 'key_file'].values[0] #Get the key file path for the file
-    
+    pair_id = dir_key.loc[dir_key['dir_name'] == file_name, 'group_pairing'].values[0]
+
 
 
     top_model = pull_top_model(file) 
-    print("The top model is" , top_model)
+    #print("The top model is" , top_model)
     
     #Define the two domains being analyzed
     # def split_at(string, sep, n):
@@ -83,12 +89,12 @@ def process_domain_pred(file, max_distance, dir_key):
     pae = pull_array(pkl , "predicted_aligned_error")
     seq_id = pull_array(ft , "entity_id") 
 
-    chain_key = create_chain_key(key_file) #Give each chain an ID based on its order in FASTA - corresponds to PDB chain in model
+    file_dict = create_file_dict(key_file, pair_id) #Give each chain an ID based on its order in FASTA - corresponds to PDB chain in model
     pdb = open_pdb(file, top_model)
 
 
     #Rename Chains here - Based on ID in key file
-    rename_chains(pdb, chain_key)
+    rename_chains(pdb, file_dict)
 
     #Create a List of the all the chain pairs
     chain_pairs = get_chain_pairs(pdb)
@@ -108,8 +114,11 @@ def process_domain_pred(file, max_distance, dir_key):
         c = convert_chains(chain_a, chain_b, chain_dict , i , seq_id)
         i_pae = check_pae(c , pae)
         i_plddt = check_plddt(i_pae , plddt)
-        chain_a_start = pull_chain_start(chain_key, chain_a)
-        chain_b_start = pull_chain_start(chain_key, chain_b)
+        chain_a_start = file_dict["A"]["Protein_start"]
+        chain_b_start = file_dict["B"]["Protein_start"]
+        
+        #chain_a_start = pull_chain_start(chain_key, chain_a)
+        #chain_b_start = pull_chain_start(chain_key, chain_b)
         #print(chain_a, "starts at:" ,chain_a_start)
         #print(chain_b, "starts at:" ,chain_b_start)
         final = convert_full_protein(chain_a = chain_a, chain_b = chain_b, chain_index_map= chain_dict, interfaces_data = 
